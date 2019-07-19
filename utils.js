@@ -1,5 +1,7 @@
 const isUndefined = val => typeof val === "undefined";
 
+const isSymbol = val = typeof val === 'symbol';
+
 const findIndex = (func, array) => {
   if (Array.prototype.findIndex) {
     return array.findIndex(func);
@@ -23,6 +25,7 @@ function isKeyable(value) {
 
 module.exports = {
   isUndefined,
+  isSymbol,
   findIndex,
   isKeyable,
 };
