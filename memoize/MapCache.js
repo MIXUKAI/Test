@@ -1,3 +1,7 @@
+const ListCache = require("./ListCache");
+const Hash = require("./Hash");
+const { isKeyable } = require("../utils");
+
 function getMapData(map, key) {
   var data = map.__data__;
   return isKeyable(key)
@@ -49,3 +53,5 @@ class MapCache {
     return this;
   }
 }
+
+module.exports = MapCache;

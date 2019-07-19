@@ -1,48 +1,36 @@
-const isUndefined = val => typeof val === 'undefined'
-const nativeCreate = Object.create
+const { isUndefined } = require("../utils");
 
-const createObject = () => {
-  return Object.create ? Object.create(null) : {};
-};
 class Hash {
   constructor(entries) {
-    this.create();
-    
+    this.data = Object.create(null);
+
     Array.isArray(entries) &&
       entries.forEach(entry => {
         this.set(entry[0], entry[1]);
       });
   }
 
-  create() {
-    this.clear();
-  }
-
   clear() {
-    this.data = createObject();
+    this.data = Object.create(null);
   }
 
   delete(key) {
-    return this.has(key) && delete this.__data__[key];
+    return this.has(key) && delete this.data[key];
   }
 
   get(key) {
-    var data = this.__data__;
-    if (nativeCreate) {
-      var result = data[key];
-      return result === HASH_UNDEFINED ? undefined : result;
-    }
-    return hasOwnProperty.call(data, key) ? data[key] : undefined;
+    var result = this.data[key];
+    return isUndefined(result) ? undefined : result;
   }
 
   has(key) {
-    return nativeCreate
-      ? this.data[key] !== undefined
-      : hasOwnProperty.call(this.data, key);
+    return !isUndefined(this.dara[key]);
   }
 
   set(key, value) {
-    this.data[key] = nativeCreate && isUndefined(value) ? void 0 : value;
+    this.data[key] = isUndefined(value) ? void 0 : value;
     return this;
   }
 }
+
+module.exports = Hash;

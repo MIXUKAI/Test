@@ -1,3 +1,5 @@
+const MapCache = require('./MapCache')
+
 function memoize(func, resolver) {
   if (typeof func != 'function' || (resolver != null && typeof resolver != 'function')) {
     throw new TypeError(FUNC_ERROR_TEXT);
