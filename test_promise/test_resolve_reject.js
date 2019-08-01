@@ -10,11 +10,11 @@ function getTodo1(id = 1) {
         console.log("delay start...");
         await delay(5000);
         console.log("delay finish...");
-        resove(data)
+        resove(data);
       })
       .catch(error => {
         // console.log(error)
-        reject(error)
+        reject(error);
       });
   }).catch(error => error);
 }
@@ -32,17 +32,41 @@ function getTodo2(id = 1) {
       return data;
     })
     .catch(error => {
-      //  resolve | return  -> try; reject -> catch
-      return error
+      /**
+       *  直接return或者return Promise.resolve(error) 会被之后调用的函数的try或者.then捕捉到
+       *  return Promise.reject(error) 才会被之后调用的函数的.catch() 和 catch(error) {} 捕捉到
+       */
+      return error;
       // return Promise.reject(error);
     });
+}
+
+// Version3
+async function getTodo3(id = 1) {
+  try {
+    const data = await fetch(
+      `https://easy-mock.com/mock/5d2d37366b6f0522c753d757/api/todo/${id}`
+    ).then(response => response.json());
+
+    console.log("delay start...");
+    await delay(5000);
+    console.log("delay finish...");
+    return data;
+  } catch (error) {
+    /**
+     *  直接return或者return Promise.resolve(error) 会被之后调用的函数的try或者.then捕捉到
+     *  return Promise.reject(error) 才会被之后调用的函数的.catch() 和 catch(error) {} 捕捉到
+     */
+    // return error;
+    return Promise.reject(error);
+  }
 }
 
 async function fetchSomeBody() {
   // await delay(1000);
   try {
     // const t1 = await getTodo1(1);
-    const t1 = await getTodo1(2);
+    const t1 = await getTodo3(2);
     console.log({ t1 });
   } catch (error) {
     console.log({ error });
