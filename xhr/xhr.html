@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      #fetchButton {
+        /* background-color: red; */
+      }
+    </style>
+  </head>
+  <body>
+    <button id="fetchButton">xhr request</button>
+    <script>
+      (function() {
+        const button = document.getElementById("fetchButton");
+
+        const xhr = new XMLHttpRequest();
+        // xhr.open("GET", "https://jsonplaceholder.typicode.com/todos/1", true);
+
+        xhr.onreadystatechange = function() {
+          if (xhr.DONE) {
+            console.log({
+              reponse: xhr.response,
+              reponseText: xhr.responseText
+            });
+          }
+        };
+
+        button.addEventListener("click", () => {
+          xhr.open("GET", "https://jsonplaceholder.typicode.com/todos/1", true);
+          xhr.send(null);
+          console.log("click");
+        });
+      })();
+    </script>
+  </body>
+</html>
